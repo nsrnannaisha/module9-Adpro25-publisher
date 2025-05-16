@@ -21,3 +21,9 @@ Dalam percobaan ini, saya menjalankan dua aplikasi, yaitu subscriber dan publish
 Saat perintah `cargo run` dijalankan di publisher, program akan mengirimkan sebanyak 5 event bertipe `UserCreatedEventMessage` ke message broker. Setiap event membawa data berupa user ID dan user name. Subscriber yang telah aktif sebelumnya akan langsung menerima dan memproses setiap event yang masuk. Hal ini dapat dilihat pada console subscriber yang mencetak pesan “Message received” untuk tiap event yang diterima.  
 
 Selain itu, tampilan di RabbitMQ melalui browser juga menunjukkan adanya koneksi yang aktif dari subscriber ke broker, yang membuktikan bahwa proses komunikasi antarkomponen berjalan dengan baik.  
+
+**Monitoring chart based on publisher**  
+![alt text]({1A364001-AB0A-4123-A9FF-78995C9F4481}.png)  
+Saat `cargo run` di jalankan di publisher, pada bagian Overview RabbitMQ, terdapat grafik Message rates yang menunjukkan adanya lonjakan (spike) aktivitas pengiriman pesan.  
+
+Spike tersebut muncul karena publisher mengirimkan beberapa event (UserCreatedEventMessage) ke message broker secara berurutan. RabbitMQ mencatat lonjakan itu sebagai peningkatan jumlah pesan yang dipublish dalam waktu singkat. Hal ini membuktikan bahwa publisher berhasil mengirim pesan dan RabbitMQ aktif memprosesnya.  
