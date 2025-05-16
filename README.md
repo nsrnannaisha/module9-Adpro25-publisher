@@ -12,4 +12,12 @@ Dalam satu kali eksekusi, program publisher mengirim lima pesan ke message broke
 URL amqp://guest:guest@localhost:5672 digunakan baik oleh publisher maupun subscriber ke broker RabbitMQ yang sama. Guest pertama adalah username untuk autentikasi, guest kedua adalah password untuk login, localhost menunjukkan bahwa broker berjalan di mesin lokal, dan 5672 adalah port default untuk komunikasi AMQP. Dengan menggunakan URL yang sama, maka publisher mengirim pesan ke broker di localhost dan subscriber menerima pesan dari broker yang sama.  
 
 **Running RabbitMQ**
-![alt text](<Running RabbitMQ.png>)
+![alt text](<Running RabbitMQ.png>)  
+
+**Sending and processing event**
+![alt text]({3016DA4C-A70E-4B6A-9B03-28E555471EC5}.png)  
+Dalam percobaan ini, saya menjalankan dua aplikasi, yaitu subscriber dan publisher. Aplikasi subscriber dijalankan, baru kemudian publisher. Keduanya saling berkomunikasi menggunakan protokol AMQP melalui RabbitMQ sebagai perantara (message broker).  
+
+Saat perintah `cargo run` dijalankan di publisher, program akan mengirimkan sebanyak 5 event bertipe `UserCreatedEventMessage` ke message broker. Setiap event membawa data berupa user ID dan user name. Subscriber yang telah aktif sebelumnya akan langsung menerima dan memproses setiap event yang masuk. Hal ini dapat dilihat pada console subscriber yang mencetak pesan “Message received” untuk tiap event yang diterima.  
+
+Selain itu, tampilan di RabbitMQ melalui browser juga menunjukkan adanya koneksi yang aktif dari subscriber ke broker, yang membuktikan bahwa proses komunikasi antarkomponen berjalan dengan baik.  
